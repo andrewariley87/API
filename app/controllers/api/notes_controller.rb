@@ -1,8 +1,8 @@
-class NotesController < ApplicationController
+class Api::NotesController < ApplicationController
 
   def index
     @notes = Note.all
-    render :json => @notes.to_json
+    render :json => @notes, each_serializer: NoteSerializer
   end
 
   def create

@@ -1,4 +1,4 @@
-class TagsController < ApplicationController
+class Api::TagsController < ApplicationController
 
 
 
@@ -12,7 +12,8 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find(params[:name])
+    @tag = Tag.find_by_name(params[:name])
+    render :json => @tag, serializer: FullNoteSerializer, :root => "tag"
   end
 
   private
