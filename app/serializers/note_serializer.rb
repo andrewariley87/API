@@ -1,5 +1,7 @@
 class NoteSerializer < ActiveModel::Serializer
-  attributes :title, :body
-  has_many :taggings
-  has_many :tags, through: :taggings
+  # attributes :title, :body
+
+  attributes :title, :body, :created_at, :updated_at
+  has_many :tags
+
 end

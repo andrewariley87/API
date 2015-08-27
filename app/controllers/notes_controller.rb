@@ -7,9 +7,12 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
-
+    tags = params[:tags].split(",").collect(&:strip)
     if @note.save
-      render :json => @note.to_json, serializer: NoteSerializer
+      tags.each do |tag|
+        @note.tags << Tag.find_or_create_by(:name => tag)
+      end
+      render :json => @note, serializer: NoteSerializer
     else
       render :json => @note.errors.to_json
     end
@@ -18,6 +21,6 @@ class NotesController < ApplicationController
   private
 
   def note_params
-    params.permit(:title, :body, :tags)
+    params.permit(:title, :body)
   end
 end
